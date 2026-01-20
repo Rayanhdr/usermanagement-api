@@ -1,0 +1,13 @@
+package com.rayanhaidar.usermanagement;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class UsermanagementApiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(UsermanagementApiApplication.class, args);
+	}
+
+}
