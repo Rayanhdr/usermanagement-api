@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: usermanagement-postgres
+    environment:
+      POSTGRES_DB: usermanagement
+      POSTGRES_USER: um_admin
+      POSTGRES_PASSWORD: um_password
+    ports:
+      - "5433:5432"
