@@ -1,6 +1,8 @@
 package com.rayanhaidar.usermanagement.service.impl;
 
 import com.rayanhaidar.usermanagement.domain.entity.UserEntity;
+import com.rayanhaidar.usermanagement.exception.DuplicateResourceException;
+import com.rayanhaidar.usermanagement.exception.ResourceNotFoundException;
 import com.rayanhaidar.usermanagement.repository.UserRepository;
 import com.rayanhaidar.usermanagement.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity create(UserEntity user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new DuplicateResourceException("Email already exists");
         }
 
         // HASH PASSWORD
@@ -38,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getById(UUID id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
