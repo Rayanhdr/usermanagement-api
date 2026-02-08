@@ -1,7 +1,6 @@
 package com.rayanhaidar.usermanagement.controller;
 
 import com.rayanhaidar.usermanagement.domain.entity.UserEntity;
-import com.rayanhaidar.usermanagement.domain.UserRole;
 import com.rayanhaidar.usermanagement.dto.request.CreateUserRequest;
 import com.rayanhaidar.usermanagement.dto.response.UserResponse;
 import com.rayanhaidar.usermanagement.service.UserService;
@@ -13,15 +12,17 @@ import com.rayanhaidar.usermanagement.mapper.UserMapper;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final UserService userService;
+    private final UserMapper userMapper;
+
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     // =========================
@@ -31,12 +32,12 @@ public class UserController {
     public ResponseEntity<UserResponse> createUser(
             @Valid @RequestBody CreateUserRequest request
     ) {
-        UserEntity user = UserMapper.toEntity(request);
+        UserEntity user = userMapper.toEntity(request);
         UserEntity savedUser = userService.create(user);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(UserMapper.toResponse(savedUser));
+                .body(userMapper.toResponse(savedUser));
     }
 
     // =========================
@@ -45,7 +46,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable UUID id) {
         return ResponseEntity.ok(
-                UserMapper.toResponse(userService.getById(id))
+                userMapper.toResponse(userService.getById(id))
         );
     }
 
@@ -57,7 +58,7 @@ public class UserController {
         return ResponseEntity.ok(
                 userService.getAll()
                         .stream()
-                        .map(UserMapper::toResponse)
+                        .map(userMapper::toResponse)
                         .toList()
         );
     }
