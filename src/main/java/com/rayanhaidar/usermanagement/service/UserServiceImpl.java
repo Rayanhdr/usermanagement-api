@@ -2,10 +2,12 @@ package com.rayanhaidar.usermanagement.service;
 
 import com.rayanhaidar.usermanagement.domain.entity.UserEntity;
 import com.rayanhaidar.usermanagement.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
