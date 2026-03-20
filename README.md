@@ -16,7 +16,7 @@ Spring Boot REST API for managing users, roles, and authentication.
 - domain - entities & enums
 
 ## Status
-🚧 In progress - built as a client-grade project for a freelancing portfolio.
+🚧 In progress.
 
 ## Author
 Rayan Haidar
